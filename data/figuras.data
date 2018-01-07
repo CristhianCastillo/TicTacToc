@@ -1,0 +1,24 @@
+#------------------------------------------
+# Figuras Geometricas
+#------------------------------------------
+
+figuras.cantidad = 6
+
+figura1.nombre = Circulo
+figura1.ruta = data/circulo.png
+
+figura2.nombre = Cuadrado
+figura2.ruta = data/cuadrado.png
+
+figura3.nombre = Rectangulo
+figura3.ruta = data/rectangulo.png
+
+figura4.nombre = Rombo
+figura4.ruta = data/rombo.png
+
+figura5.nombre = Tracepecio
+figura5.ruta = data/trapecio.png
+
+figura6.nombre = Triangulo
+figura6.ruta = data/triangulo.png
+

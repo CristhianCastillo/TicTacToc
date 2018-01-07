@@ -1,0 +1,33 @@
+#-------------------------------
+# Lista de Jugadores
+#-------------------------------
+
+numeroJugadores = 5
+
+jugador1.nombre = Cristhian Castillo
+jugador1.partidasGanadas = 0
+jugador1.partidasEmpatadas = 0
+jugador1.partidasPerdidas = 0
+
+
+jugador2.nombre = Sebastian Castillo
+jugador2.partidasGanadas = 0
+jugador2.partidasEmpatadas = 0
+jugador2.partidasPerdidas = 0
+
+
+jugador3.nombre = Luisa Castillo
+jugador3.partidasGanadas = 0
+jugador3.partidasEmpatadas = 0
+jugador3.partidasPerdidas = 0
+
+
+jugador4.nombre = Yolanda Erazo
+jugador4.partidasGanadas = 0
+jugador4.partidasEmpatadas = 0
+jugador4.partidasPerdidas = 0
+
+jugador5.nombre = Kurt Cobain
+jugador5.partidasGanadas = 0
+jugador5.partidasEmpatadas = 0
+jugador5.partidasPerdidas = 0

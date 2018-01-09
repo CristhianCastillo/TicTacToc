@@ -207,11 +207,26 @@ public class Controlador {
         if (numeroJugada >= 3) {
             boolean gano = tresLineas.validarGanador(x, y);
             if (gano) {
-                pnlJuego.actualizarGanador(jugadorActual.getNombre() + " ha ganado!");
+                //jugador ganador.
+                String jugadorGanador = jugadorActual.getNombre();
+                jugadorActual.incrementarPartidasGanadas();
+                //Jugador perdedor.
+                jugadorActual = colaDeTurno.poll();
+                jugadorActual.incrementarPartidasPerdidas();
+                pnlJuego.actualizarGanador(jugadorGanador + " ha ganado!");
                 reiniciarJuego();
             } else {
                 if (numeroMovimiento == 9) {
-                    pnlJuego.actualizarGanador("Ha sido un empate!");
+                    //Jugador con el turno
+                    String jugadorUno = jugadorActual.getNombre();
+                    jugadorActual.incrementarPartidasEmpatadas();
+                    
+                    //Jugador en espera
+                    jugadorActual = colaDeTurno.poll();
+                    String jugadorDos = jugadorActual.getNombre();
+                    jugadorActual.incrementarPartidasEmpatadas();
+                    
+                    pnlJuego.actualizarGanador("Ha sido un empate entre " +  jugadorUno + " y " + jugadorDos);
                     reiniciarJuego();
                 } else {
                     cambiarTurno();
@@ -219,7 +234,14 @@ public class Controlador {
             }
         } else {
             if (numeroMovimiento == 9) {
-                pnlJuego.actualizarGanador("Ha sido un empate!");
+                //Jugador con el turno
+                String jugadorUno = jugadorActual.getNombre();
+                jugadorActual.incrementarPartidasEmpatadas();
+                //Jugador en espera
+                jugadorActual = colaDeTurno.poll();
+                String jugadorDos = jugadorActual.getNombre();
+                jugadorActual.incrementarPartidasEmpatadas();
+                pnlJuego.actualizarGanador("Ha sido un empate entre " +  jugadorUno + " y " + jugadorDos);
                 reiniciarJuego();
             } else {
                 cambiarTurno();

@@ -204,9 +204,27 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener {
 
         if (comando.equals(NUEVO_JUEGO)) {
             DialogoIniciarJuego nuevoJuego = new DialogoIniciarJuego(ctrl, ctrlJugadores.obtenerJugadores(), ctrlFiguras.obtenerFiguras());
-            nuevoJuego.setLocationRelativeTo(null);
+            nuevoJuego.setModal(true);
             nuevoJuego.setVisible(true);
 
+        }
+        else
+        {
+            if(comando.equals(JUGADORES))
+            {
+                DialogoJugadores configuracionJugadores = new DialogoJugadores(ctrlJugadores);
+                configuracionJugadores.setModal(true);
+                configuracionJugadores.setVisible(true);
+            }
+            else
+            {
+                if(comando.equalsIgnoreCase(FIGURAS_GEOMETRICAS))
+                {
+                    DialogoFigurasGeometricas configuracionFiguras = new DialogoFigurasGeometricas();
+                    configuracionFiguras.setModal(true);
+                    configuracionFiguras.setVisible(true);
+                }
+            }
         }
     }
 

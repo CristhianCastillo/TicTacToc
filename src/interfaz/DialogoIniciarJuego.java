@@ -17,10 +17,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import controlador.Controlador;
+import java.awt.Dimension;
 import modelo.figura.FiguraGeometrica;
 import modelo.jugador.Jugador;
 
@@ -49,7 +49,22 @@ public class DialogoIniciarJuego extends JDialog implements ActionListener {
      * Comando enviado por el boton Agregar Jugador.
      */
     public static final String AGREGAR_JUGADOR = "Agregar jugador";
-
+    
+    /**
+     * Tamaño horizontal de los comboBox.
+     */
+    public static final int HORIZONTAL_SIZE_COMBOBOX = 135;
+    
+    /**
+     * Tamaño vertical de los comboBox.
+     */
+    public static final int VERTICAL_SIZE_COMBOBOX = 25;
+    
+    /**
+     * Numero de items maximos por comboBox.
+     */
+    public static final int ITEMS_MAXIMOS_COMBOBOX = 5;
+   
     // -------------------------------------------------------------------------
     // Atributos
     // -------------------------------------------------------------------------
@@ -149,20 +164,36 @@ public class DialogoIniciarJuego extends JDialog implements ActionListener {
         DefaultComboBoxModel<String> modeloFigurasDos = new DefaultComboBoxModel(figuras.toArray());
 
         //Creacion de los componentes.
-        lblJugadorUno = new JLabel("Jugador (1):");
-        lblJugadorDos = new JLabel("Jugador (2):");
+        lblJugadorUno = new JLabel("Jugador:");
+        lblJugadorDos = new JLabel("Jugador:");
+        
         cbmJugadorUno = new JComboBox<>(modeloJugadorUno);
+        cbmJugadorUno.setMaximumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmJugadorUno.setMinimumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmJugadorUno.setMaximumRowCount(ITEMS_MAXIMOS_COMBOBOX);
+        
         cbmJugadorDos = new JComboBox<>(modeloJugadorDos);
-
-        lblFiguraUno = new JLabel("Figura (1):");
-        lblFiguraDos = new JLabel("Figura (2):");
-        cbmFiguraUno = new JComboBox<String>(modeloFigurasUno);
-        cbmFiguraDos = new JComboBox<String>(modeloFigurasDos);
-
+        cbmJugadorDos.setMaximumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmJugadorDos.setMinimumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmJugadorDos.setMaximumRowCount(ITEMS_MAXIMOS_COMBOBOX);
+        
+        lblFiguraUno = new JLabel("Figura:");
+        lblFiguraDos = new JLabel("Figura:");
+        
+        cbmFiguraUno = new JComboBox<>(modeloFigurasUno);
+        cbmFiguraUno.setMaximumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmFiguraUno.setMinimumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmFiguraUno.setMaximumRowCount(ITEMS_MAXIMOS_COMBOBOX);
+        
+        cbmFiguraDos = new JComboBox<>(modeloFigurasDos);
+        cbmFiguraDos.setMaximumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmFiguraDos.setMinimumSize(new Dimension(HORIZONTAL_SIZE_COMBOBOX,VERTICAL_SIZE_COMBOBOX));
+        cbmFiguraDos.setMaximumRowCount(ITEMS_MAXIMOS_COMBOBOX);
+        
         btnInicarJuego = new JButton("Iniciar juego");
         btnInicarJuego.setActionCommand(INCIAR_JUEGO);
         btnInicarJuego.addActionListener((ActionListener) this);
-
+             
         JPanel pnlJugadorUno = new JPanel();
         pnlJugadorUno.setBorder(new TitledBorder("Jugador Uno"));
         GroupLayout grupoJugadorUno = new GroupLayout(pnlJugadorUno);
@@ -186,9 +217,6 @@ public class DialogoIniciarJuego extends JDialog implements ActionListener {
                         .addComponent(cbmFiguraUno)
                 )
         );
-
-        //Colocar componentes del mismo tama�o
-        grupoJugadorUno.linkSize(SwingConstants.HORIZONTAL, cbmJugadorUno, cbmFiguraUno);
 
         //Set Vertical
         grupoJugadorUno.setVerticalGroup(grupoJugadorUno.createSequentialGroup()
@@ -223,9 +251,7 @@ public class DialogoIniciarJuego extends JDialog implements ActionListener {
                         .addComponent(cbmFiguraDos)
                 )
         );
-
-        grupoJugadorDos.linkSize(SwingConstants.HORIZONTAL, cbmJugadorDos, cbmFiguraDos);
-
+        
         //Set Vertical
         grupoJugadorDos.setVerticalGroup(grupoJugadorDos.createSequentialGroup()
                 .addGroup(grupoJugadorDos.createParallelGroup()
@@ -301,8 +327,11 @@ public class DialogoIniciarJuego extends JDialog implements ActionListener {
 
         this.add(pnlNorte, BorderLayout.NORTH);
         this.add(pnlSur, BorderLayout.CENTER);
-
-        this.setSize(485, 340);
+        
+        this.setSize(445, 330);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
     // -------------------------------------------------------------------------

@@ -77,7 +77,7 @@ public class InterfazApp extends JFrame {
         ctrl = new Controlador();
         ctrlFigura = new ControladorFiguras();
         ctrlJugadores = new ControladorJugadores();
-        this.setTitle("Tic-Tac-Toe");
+        this.setTitle("Tic-Tac-Toc");
         this.setLayout(new BorderLayout());
 
         JPanel pnlNorte = new JPanel();

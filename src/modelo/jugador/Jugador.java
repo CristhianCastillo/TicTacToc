@@ -159,6 +159,30 @@ public class Jugador {
     public void setFigura(FiguraGeometrica figura) {
         this.figura = figura;
     }
+    
+    /**
+     * Incrementa las partidas ganadas por el jugador.
+     */
+    public void incrementarPartidasGanadas()
+    {
+        this.partidasGanadas ++;
+    }
+    
+    /**
+     * Incrementa las partidas empatadas por un jugador.
+     */
+    public void incrementarPartidasEmpatadas()
+    {
+        this.partidasEmpatadas ++;
+    }
+    
+    /**
+     * Incrementa las partidas perdidas por un jugador.
+     */
+    public void incrementarPartidasPerdidas()
+    {
+        this.partidasPerdidas ++;
+    }
 
     /**
      * Representacion de un jugador.

@@ -119,7 +119,49 @@ public class ControladorJugadores {
      *
      * @return Lista de jugadores.
      */
-    public ArrayList<Jugador> obtenerJugadores() {
+    public ArrayList<Jugador> obtenerJugadores() 
+    {
         return jugadores.getJugadores();
+    }
+    
+    /**
+     * Gestiona el proceso para agregar un nuevo jugador.
+     * @param nombreJugador  Nombre del nuevo jugador. nombreJugador != null &&
+     * nombreJugador == "".
+     */
+    public void agregarJugador(String nombreJugador)
+    {
+        Jugador jugador = new Jugador(nombreJugador, 0, 0, 0);
+        this.jugadores.agregarJugador(jugador);
+    }
+    
+    /**
+     * Consultar posicion de un jugador.
+     * @param nombreJugador Nombre del jugador a buscar. nombreJugador != null
+     * && nombreJugador != "".
+     * @return Posición del jugador.
+     */
+    public int consultarJugador(String nombreJugador)
+    {
+        return jugadores.consultarJugador(nombreJugador);
+    }
+    
+    /**
+     * Actualiza el nombre de un jugador.
+     * @param index posicion en la lista del jugador.
+     * @param nombre Nuevo nombre del jugador. nombre != null && nombre != "".
+     */
+    public void actualizarJugador(int index, String nombre)
+    {
+        jugadores.cambiarNombreJugador(index, nombre);
+    }
+    
+    /**
+     * Gestiona el proceso para elimina un jugador de la lista.
+     * @param index Posicion actual del jugador a eliminar en la listas.
+     */
+    public void eliminarJugador(int index)
+    {
+        jugadores.eliminarJugador(index);
     }
 }

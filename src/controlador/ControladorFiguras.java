@@ -1,5 +1,11 @@
-/**
- *
+/* *****************************************************************************
+ * Class: ControladorFiguras.java 
+ * Date: ene 10, 2018 9:38:01 p.m.
+ * Copyright 2018 All rights reserved
+ * 
+ * Proyect: TicTacToc
+ * Autor: Cristhian Eduardo Castillo Erazo - ene 10, 2018 
+ * *****************************************************************************
  */
 package controlador;
 
@@ -84,6 +90,18 @@ public class ControladorFiguras {
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
+    }
+    
+    /**
+     * Agrega una nueva figura gometrica.
+     * 
+     * @param nombreFigura Nombre de la figura geometrica. nombreFigura != null && nombreFigura != "".
+     * @param rutaFigura Ruta de la imagen de la figura. rutaFigura != null && rutaFigura != "".
+     */
+    public void agregarFigura(String nombreFigura, String rutaFigura)
+    {
+       FiguraGeometrica figura = new FiguraGeometrica(nombreFigura, rutaFigura);
+       lista.agregarFigura(figura);
     }
 
     /**

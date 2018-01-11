@@ -1,5 +1,11 @@
-/**
- *
+/* *****************************************************************************
+ * Class: PanelOpcionesJuego.java 
+ * Date: ene 10, 2018 9:38:01 p.m.
+ * Copyright 2018 All rights reserved
+ * 
+ * Proyect: TicTacToc
+ * Autor: Cristhian Eduardo Castillo Erazo - ene 10, 2018 
+ * *****************************************************************************
  */
 package interfaz;
 
@@ -220,7 +226,7 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener {
             {
                 if(comando.equalsIgnoreCase(FIGURAS_GEOMETRICAS))
                 {
-                    DialogoFigurasGeometricas configuracionFiguras = new DialogoFigurasGeometricas();
+                    DialogoFigurasGeometricas configuracionFiguras = new DialogoFigurasGeometricas(ctrlFiguras);
                     configuracionFiguras.setModal(true);
                     configuracionFiguras.setVisible(true);
                 }

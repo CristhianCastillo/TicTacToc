@@ -1,5 +1,11 @@
-/**
- *
+/* *****************************************************************************
+ * Class: PanelTitulo.java 
+ * Date: ene 10, 2018 9:38:01 p.m.
+ * Copyright 2018 All rights reserved
+ * 
+ * Proyect: TicTacToc
+ * Autor: Cristhian Eduardo Castillo Erazo - ene 10, 2018 
+ * *****************************************************************************
  */
 package interfaz;
 

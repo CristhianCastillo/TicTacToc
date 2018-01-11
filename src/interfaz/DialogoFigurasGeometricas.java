@@ -1,18 +1,28 @@
-/**
+/* *****************************************************************************
+ * Class: DialogoFigurasGeometricas.java 
+ * Date: ene 10, 2018 9:38:01 p.m.
+ * Copyright 2018 All rights reserved
  * 
+ * Proyect: TicTacToc
+ * Autor: Cristhian Eduardo Castillo Erazo - ene 10, 2018 
+ * *****************************************************************************
  */
 package interfaz;
 
+import controlador.ControladorFiguras;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,11 +30,14 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import modelo.figura.FiguraGeometrica;
 
 /**
- * @author Cristhian Eduardo Castillo Erazo.
  * Clase que representa el Dialogo para gestionar las configuraciones de las
  * figuras geometricas de la aplicación.
+ * 
+ * @author Cristhian Eduardo Castillo Erazo.
  */
 public class DialogoFigurasGeometricas extends JDialog implements ActionListener
 {
@@ -61,27 +74,77 @@ public class DialogoFigurasGeometricas extends JDialog implements ActionListener
     //  Atributos
     // -------------------------------------------------------------------------
     
+    /**
+     * Etiqueta nombre de la figura geometrica.
+     */
     private JLabel lblNombreFigura;
+    
+    /**
+     * Etiqueta ruta de la imagen de la figura geometrica.
+     */
     private JLabel lblRutaFigura;
+    
+    /**
+     * Etiqueta figura geomtrica seleccionada.
+     */
     private JLabel lblFiguraSeleccionada;
     
+    /**
+     * Campo de texto Nombre figura geometrica.
+     */
     private JTextField txtNombreFigura;
+    
+    /**
+     * Campo de texto Ruta de la imagen de la figura geometrica.
+     */
     private JTextField txtRutaFigura;
+    
+    /**
+     * Campo de texto Figura geometrica seleccionada.
+     */
     private JTextField txtFiguraSeleccionada;
     
+    /**
+     * Boton Agregar figura geometrica.
+     */
     private JButton btnAgregarFigura;
+    
+    /**
+     * Boton Seleccionar figura geometrica.
+     */
     private JButton btnSeleccionarFigura;
+    
+    /**
+     * Boton Actualizar figura geomtrica.
+     */
     private JButton btnActualizarFigura;
+    
+    /**
+     * Boton Eliminar figura geometrica.
+     */
     private JButton btnEliminarFigura;
     
+    /**
+     * Tabla para las figuras geometricas.
+     */
     private JTable tabla;
+    
+    /**
+     * Controlador figuras.
+     */
+    private ControladorFiguras ctrl;
     
     // -------------------------------------------------------------------------
     //  Constructores
     // -------------------------------------------------------------------------
     
-    public DialogoFigurasGeometricas()
+    /**
+     * Construye la ventana para mostrar las figuras geomtricas actuales.
+     * @param ctrl Controlador figuras.
+     */
+    public DialogoFigurasGeometricas(ControladorFiguras ctrl)
     {
+        this.ctrl = ctrl;
         this.setTitle("Configuración figuras geometricas");
         this.setLayout(new BorderLayout());
         
@@ -193,19 +256,95 @@ public class DialogoFigurasGeometricas extends JDialog implements ActionListener
         this.setSize(440, 400);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
+        this.actualizarListaFigurasGeometricas();
     }
+    
     // -------------------------------------------------------------------------
     //  Metodos
     // -------------------------------------------------------------------------
 
     /**
-     * 
-     * @param e 
+     * Metodo que escucha los eventos generados por los botones.
+     * @param e Evento generado por los botones. e != null.
      */
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        
+        String comando = e.getActionCommand();
+  
+        if(comando.equalsIgnoreCase(SELECCIONAR_FIGURA))
+        {
+            JFileChooser fileChooser = new JFileChooser("./data");
+            fileChooser.setDialogTitle("Buscar figura geometrica");
+            fileChooser.setMultiSelectionEnabled(false);
+            
+            int resultado = fileChooser.showOpenDialog(this);
+            if(resultado == JFileChooser.APPROVE_OPTION)
+            {
+                String imagen = fileChooser.getSelectedFile().getAbsolutePath();
+                txtRutaFigura.setText(imagen);
+            }
+        }
+        else
+        {
+            if(comando.equalsIgnoreCase(AGREGAR_FIGURA))
+            {
+               try
+               {
+                   String nombreFigura = txtNombreFigura.getText();
+                   if(nombreFigura == null)
+                       throw new Exception("No se a definido la propiedad Nombre Figura.");
+                   if(nombreFigura.trim().equalsIgnoreCase(""))
+                       throw new Exception("La propiedad Nombre figura, no puede estar vacia.");
+                   String rutaFigura = txtRutaFigura.getText();
+                   if(rutaFigura == null)
+                       throw new Exception("No se ha definido la propiedad Ruta Figura.");
+                   if(rutaFigura.trim().equalsIgnoreCase(""))
+                       throw new Exception("La propiedad Ruta figura, no puede estar vacia.");
+                   
+                   ctrl.agregarFigura(nombreFigura, rutaFigura);
+                   this.actualizarListaFigurasGeometricas();
+               }
+               catch(Exception ex)
+               {
+                  JOptionPane.showMessageDialog(this, ex.getMessage(), "Agregar figura", JOptionPane.ERROR_MESSAGE); 
+               }
+            }
+        }
     }
     
+    
+    public void actualizarListaFigurasGeometricas()
+    {
+        DefaultTableModel modelo = new DefaultTableModel(COLUMNAS,0)
+        {
+             @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        };
+        
+        try
+        {
+            ArrayList<FiguraGeometrica> lista = ctrl.obtenerFiguras();
+            for(int i = 0; i < lista.size(); i ++)
+            {
+                String [] figuraGeometrica = new String[2];
+                figuraGeometrica[0] = lista.get(i).getNombreFigura();
+                figuraGeometrica[1] = lista.get(i).getRuta();
+                modelo.addRow(figuraGeometrica);
+            }
+            tabla.setModel(modelo);
+            TableColumnModel columnModel = tabla.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(2);
+            columnModel.getColumn(1).setPreferredWidth(120);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Actualizar lista", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
 }

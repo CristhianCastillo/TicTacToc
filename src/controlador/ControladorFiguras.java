@@ -112,5 +112,37 @@ public class ControladorFiguras {
     public ArrayList<FiguraGeometrica> obtenerFiguras() {
         return lista.getFiguras();
     }
-
+    
+    /**
+     * Gestiona el proceso de busqueda de una figura geometrica en la lista por
+     * nombre.
+     * @param nombreFigura Nombre figura geoemtrica. 
+     * nombreFigura != null && nombreFigura != "".
+     * @return Posición donde se encontro la figura geometrica. 
+     */
+    public int consultarFigura(String nombreFigura)
+    {
+        return lista.consultarFigura(nombreFigura);
+    }
+    
+    /**
+     * Gestiona el proceso para actualizar el nombre de una figura geometrica.
+     * @param index Indice donde se encuentra la figura seleccionada para actualizar.
+     * @param nuevoNombre Nuevo nombre de la figura seleccionada. nuevoNombre != null
+     * && nuevoNombre != "".
+     */
+    public void actualizarFigura(int index, String nuevoNombre)
+    {
+        lista.actualizarNombreFigura(index, nuevoNombre);
+    }
+    
+    /**
+     * Gestiona el proceso para eliminar una figura geometrica.
+     * @param index Indice donde se encuentra la figura geometrica a eliminar.
+     */
+    public void eliminarFigura(int index)
+    {
+        lista.eliminarFigura(index);
+    }
+    
 }

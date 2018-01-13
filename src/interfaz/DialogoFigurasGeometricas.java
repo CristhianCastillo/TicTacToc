@@ -16,6 +16,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -39,7 +41,7 @@ import modelo.figura.FiguraGeometrica;
  * 
  * @author Cristhian Eduardo Castillo Erazo.
  */
-public class DialogoFigurasGeometricas extends JDialog implements ActionListener
+public class DialogoFigurasGeometricas extends JDialog implements ActionListener, MouseListener
 {
     // -------------------------------------------------------------------------
     //  Constantes
@@ -166,6 +168,7 @@ public class DialogoFigurasGeometricas extends JDialog implements ActionListener
         tabla.setFont(new Font("Arial", Font.BOLD, 12));
         tabla.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabla.getTableHeader().setReorderingAllowed(false);
+        tabla.addMouseListener((MouseListener)this);
         
         JScrollPane scroll = new JScrollPane();
         scroll.setViewportView(tabla);
@@ -263,6 +266,51 @@ public class DialogoFigurasGeometricas extends JDialog implements ActionListener
     // -------------------------------------------------------------------------
     //  Metodos
     // -------------------------------------------------------------------------
+    
+    /**
+     * Limpia los campos de la ventana.
+     */
+    public void limipiarCampos()
+    {
+        txtNombreFigura.setText("");
+        txtFiguraSeleccionada.setText("");
+        txtRutaFigura.setText("");
+    }
+    
+    /**
+     * Actualiza la lista de figuras geometricas.
+     */
+    public void actualizarListaFigurasGeometricas()
+    {
+        DefaultTableModel modelo = new DefaultTableModel(COLUMNAS,0)
+        {
+             @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        };
+        
+        try
+        {
+            ArrayList<FiguraGeometrica> lista = ctrl.obtenerFiguras();
+            for(int i = 0; i < lista.size(); i ++)
+            {
+                String [] figuraGeometrica = new String[2];
+                figuraGeometrica[0] = lista.get(i).getNombreFigura();
+                figuraGeometrica[1] = lista.get(i).getRuta();
+                modelo.addRow(figuraGeometrica);
+            }
+            tabla.setModel(modelo);
+            TableColumnModel columnModel = tabla.getColumnModel();
+            columnModel.getColumn(0).setPreferredWidth(2);
+            columnModel.getColumn(1).setPreferredWidth(120);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Actualizar lista", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * Metodo que escucha los eventos generados por los botones.
@@ -303,48 +351,124 @@ public class DialogoFigurasGeometricas extends JDialog implements ActionListener
                    if(rutaFigura.trim().equalsIgnoreCase(""))
                        throw new Exception("La propiedad Ruta figura, no puede estar vacia.");
                    
-                   ctrl.agregarFigura(nombreFigura, rutaFigura);
-                   this.actualizarListaFigurasGeometricas();
+                   if(ctrl.consultarFigura(nombreFigura)== -1)
+                   {
+                        ctrl.agregarFigura(nombreFigura, rutaFigura);
+                        this.actualizarListaFigurasGeometricas();
+                        this.limipiarCampos();
+                   }
+                   else
+                   {
+                       txtNombreFigura.requestFocus();
+                       throw new Exception("Ya se encuentra registrada una figura con el mismo nombre.");
+                   }
                }
                catch(Exception ex)
                {
                   JOptionPane.showMessageDialog(this, ex.getMessage(), "Agregar figura", JOptionPane.ERROR_MESSAGE); 
                }
             }
+            else
+            {
+                if(comando.equalsIgnoreCase(ACTUALIZAR_FIGURA))
+                {
+                    try
+                    {
+                        String nombreSeleccionado = txtFiguraSeleccionada.getText();
+                        if(nombreSeleccionado == null)
+                            throw new Exception("No se ha definido la propiedad 'Nombre figura seleccionado'."); 
+                        if(nombreSeleccionado.trim().equalsIgnoreCase(""))
+                            throw new Exception("Debe seleccionar una figura.");
+                        
+                        String nuevoNombre = txtNombreFigura.getText();
+                        if(nuevoNombre == null)
+                            throw new Exception("No se ha definido la propiedad 'Nuevo nombre figura'.");
+                        if(nuevoNombre.trim().equalsIgnoreCase(""))
+                            throw new Exception("El nuevo nombre de la figura no puede estar vacio.");
+                        
+                        int index = ctrl.consultarFigura(nombreSeleccionado);
+                        if(index != -1)
+                        {
+                            if(ctrl.consultarFigura(nuevoNombre) == -1)
+                            {
+                                ctrl.actualizarFigura(index, nuevoNombre);
+                                this.actualizarListaFigurasGeometricas();
+                                this.limipiarCampos();
+                            }
+                            else
+                                throw new Exception("El nuevo nombre seleccionado ya se encuentra registrado.");
+                        }
+                        else
+                            throw new Exception("No se encuentra el jugador seleccionado.");
+                    }
+                    catch(Exception ex)
+                    {
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Actualizar figura", JOptionPane.ERROR_MESSAGE );
+                    }
+                }
+                else
+                {
+                    if(comando.equalsIgnoreCase(ELIMINAR_FIGURA))
+                    {
+                        try
+                        {
+                            String nombreFigura = txtFiguraSeleccionada.getText();
+                            if(nombreFigura == null)
+                                throw new Exception("No se ha definido la figura seleccionada.");
+                            if(nombreFigura.trim().equalsIgnoreCase(""))
+                                throw new Exception("Debe seleccionar una figura de la lista.");
+                            
+                            if(JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar la figura seleccionada?", "Eliminar figura", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                            {
+                                int index = ctrl.consultarFigura(nombreFigura);
+                                if(index != -1)
+                                {
+                                    ctrl.eliminarFigura(index);
+                                    this.actualizarListaFigurasGeometricas();
+                                    this.limipiarCampos();
+                                }
+                                else
+                                    throw new Exception("No se encuentra la figura seleccionada para eliminar.");
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            JOptionPane.showMessageDialog(this, ex.getMessage(), "Eliminar figura", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }
         }
     }
     
-    
-    public void actualizarListaFigurasGeometricas()
+    /**
+     * 
+     * @param e 
+     */
+    @Override
+    public void mouseClicked(MouseEvent e) 
     {
-        DefaultTableModel modelo = new DefaultTableModel(COLUMNAS,0)
-        {
-             @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;
-            }
-        };
+        int row = tabla.rowAtPoint(e.getPoint());
+        txtFiguraSeleccionada.setText(tabla.getValueAt(row, 0) + "");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
         
-        try
-        {
-            ArrayList<FiguraGeometrica> lista = ctrl.obtenerFiguras();
-            for(int i = 0; i < lista.size(); i ++)
-            {
-                String [] figuraGeometrica = new String[2];
-                figuraGeometrica[0] = lista.get(i).getNombreFigura();
-                figuraGeometrica[1] = lista.get(i).getRuta();
-                modelo.addRow(figuraGeometrica);
-            }
-            tabla.setModel(modelo);
-            TableColumnModel columnModel = tabla.getColumnModel();
-            columnModel.getColumn(0).setPreferredWidth(2);
-            columnModel.getColumn(1).setPreferredWidth(120);
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Actualizar lista", JOptionPane.ERROR_MESSAGE);
-        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
         
     }
 }

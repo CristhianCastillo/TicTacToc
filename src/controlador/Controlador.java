@@ -213,12 +213,14 @@ public class Controlador {
         if (numeroJugada >= 3) {
             boolean gano = tresLineas.validarGanador(x, y);
             if (gano) {
-                //jugador ganador.
+                //Jugador ganador.
                 String jugadorGanador = jugadorActual.getNombre();
                 jugadorActual.incrementarPartidasGanadas();
+                jugadorActual.actualizarPromedio();
                 //Jugador perdedor.
                 jugadorActual = colaDeTurno.poll();
                 jugadorActual.incrementarPartidasPerdidas();
+                jugadorActual.actualizarPromedio();
                 pnlJuego.actualizarGanador(jugadorGanador + " ha ganado!");
                 reiniciarJuego();
             } else {

@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import controlador.Controlador;
 import controlador.ControladorFiguras;
 import controlador.ControladorJugadores;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que representa la ventana principal de la aplicación.
@@ -23,7 +26,7 @@ import controlador.ControladorJugadores;
  * @author Cristhian Eduardo Castillo Erazo.
  *
  */
-public class InterfazApp extends JFrame {
+public class InterfazApp extends JFrame implements WindowListener {
     // -------------------------------------------------------------------------
     // Constantes
     // -------------------------------------------------------------------------
@@ -108,7 +111,8 @@ public class InterfazApp extends JFrame {
         this.setSize(452, 475);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-
+        this.addWindowListener(this);
+        
         ctrl.conectar(pnlInformacion, pnlOpcionesJuego, pnlJuego);
         ctrl.reiniciarJuego();
         ctrlJugadores.importarLista("./data/jugadores.data");
@@ -128,4 +132,31 @@ public class InterfazApp extends JFrame {
         InterfazApp aplicacion = new InterfazApp();
         aplicacion.setVisible(true);
     }
+
+    @Override
+    public void windowOpened(WindowEvent e) {}
+    
+    /**
+     * Metodo que se ejecuta cuando se esta cerrando el formulario.
+     * <br>
+     * Inicializa el proceso de actualizar el archivo de propiedades de los 
+     * jugadores e imagenes de la aplicación.
+     * <br>
+     * @param e Evento generado por la ventana principal de la aplicación. e!= null.
+     */
+    @Override
+    public void windowClosing(WindowEvent e) 
+    {
+        JOptionPane.showMessageDialog(this, "Se cierra la aplicación.", "Cerrar Aplicación", JOptionPane.INFORMATION_MESSAGE);
+    }
+    @Override
+    public void windowClosed(WindowEvent e) {}
+    @Override
+    public void windowIconified(WindowEvent e) {}
+    @Override
+    public void windowDeiconified(WindowEvent e) {}
+    @Override
+    public void windowActivated(WindowEvent e) {}
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
 }

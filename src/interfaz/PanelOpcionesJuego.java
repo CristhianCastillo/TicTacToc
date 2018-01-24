@@ -230,6 +230,16 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener {
                     configuracionFiguras.setModal(true);
                     configuracionFiguras.setVisible(true);
                 }
+                else
+                {
+                    if(comando.equalsIgnoreCase(MEJORES_PUNTAJES))
+                    {
+                        DialogoMejoresPuntajes mejoresJugadores = new DialogoMejoresPuntajes();
+                        mejoresJugadores.actualizarTabla(ctrlJugadores.promediarJugadores());
+                        mejoresJugadores.setModal(true);
+                        mejoresJugadores.setVisible(true);
+                    }
+                }
             }
         }
     }

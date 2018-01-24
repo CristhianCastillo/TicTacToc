@@ -44,6 +44,11 @@ public class Jugador {
      * Numero de partidas perdidas por el jugador.
      */
     private int partidasPerdidas;
+    
+    /**
+     * Promedio del jugador.
+     */
+    private double promedioJugador;
 
     /**
      * Figura seleccionda por el jugador.
@@ -63,12 +68,14 @@ public class Jugador {
      * pPartidasEmpatadas >= 0.
      * @param pPartidasPerdidas Partidas perdidas por el jugador.
      * pPartidasPerdidas >= 0.
+     * @param pPromedio Promedio de juego. pPromedio >= 0.0
      */
-    public Jugador(String pNombre, int pPartidasGanadas, int pPartidasEmpatadas, int pPartidasPerdidas) {
+    public Jugador(String pNombre, int pPartidasGanadas, int pPartidasEmpatadas, int pPartidasPerdidas, double pPromedio) {
         this.nombre = pNombre;
         this.partidasGanadas = pPartidasGanadas;
         this.partidasEmpatadas = pPartidasEmpatadas;
         this.partidasPerdidas = pPartidasPerdidas;
+        this.promedioJugador = pPromedio;
         this.figura = null;
     }
 
@@ -165,6 +172,23 @@ public class Jugador {
     public void setFigura(FiguraGeometrica figura) {
         this.figura = figura;
     }
+
+    /**
+     * Obtiene el promedio de juego de un jugador.
+     * @return Promedio de juego de un jugador.
+     */
+    public double getPromedioJugador() {
+        return promedioJugador;
+    }
+
+    /**
+     * Actualiza el promedio de juego de un jugador.
+     * @param promedioJugador Promedio de juego de un jugador.
+     * promedioJugador >= 0.0
+     */
+    public void setPromedioJugador(double promedioJugador) {
+        this.promedioJugador = promedioJugador;
+    }
     
     /**
      * Incrementa las partidas ganadas por el jugador.
@@ -188,6 +212,14 @@ public class Jugador {
     public void incrementarPartidasPerdidas()
     {
         this.partidasPerdidas ++;
+    }
+    
+    /**
+     * Actualiza el promedio de juego de un jugador.
+     */
+    public void actualizarPromedio()
+    {
+        this.promedioJugador = this.partidasGanadas - this.partidasPerdidas;
     }
 
     /**

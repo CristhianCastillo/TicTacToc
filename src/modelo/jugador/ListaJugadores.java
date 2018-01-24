@@ -100,5 +100,37 @@ public class ListaJugadores {
     {
         this.grupoJugadores.remove(index);
     }
+    
+    /**
+     * Organiza la lista de jugadores de mayor a menor promedio de juego.,
+     * @return Lista ordenada cpn los jugadores.
+     */
+    public ArrayList<Jugador> promediarJugadores()
+    {
+        ArrayList<Jugador> jugadoresPromediados;
+        jugadoresPromediados = (ArrayList<Jugador>) grupoJugadores.clone();
+
+        for(int i = 0; i < jugadoresPromediados.size(); i ++)
+        {
+            Jugador jugadorActual = jugadoresPromediados.get(i);
+            Jugador jugadorPivote = jugadorActual;
+            int pos = i;
+            for(int j = pos + 1; j < jugadoresPromediados.size(); j ++)
+            {
+                Jugador jugadorTemp = jugadoresPromediados.get(j);
+                if(jugadorTemp.getPromedioJugador() > jugadorPivote.getPromedioJugador())
+                {
+                    jugadorPivote = jugadorTemp;
+                    pos = j;
+                }
+            }
+
+            //Intercambio
+            jugadoresPromediados.set(i, jugadorPivote);
+            jugadoresPromediados.set(pos, jugadorActual);
+        }
+
+        return jugadoresPromediados;
+    }
 
 }

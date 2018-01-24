@@ -49,7 +49,7 @@ public class ControladorJugadores {
     // Metodos
     // -------------------------------------------------------------------------
     /**
-     * Leer e importa la lista de jugadores.
+     * Leer e importa la lista de jugadores de un archivo de propiedades.
      *
      * @param ruta Ruta del archivo de propiedades.
      * @throws Exception
@@ -70,6 +70,7 @@ public class ControladorJugadores {
                 String partidasGanadasStr = archivo.getProperty("jugador" + i + ".partidasGanadas");
                 String partidasEmpatadasStr = archivo.getProperty("jugador" + i + ".partidasEmpatadas");
                 String partidasPerdidasStr = archivo.getProperty("jugador" + i + ".partidasPerdidas");
+                String promedioStr = archivo.getProperty("jugador" + i + ".promedio");
 
                 if (nombreJugador == null) {
                     throw new Exception("Falta definir la propiedad jugador" + i + ".nombre");
@@ -83,6 +84,9 @@ public class ControladorJugadores {
                 if (partidasPerdidasStr == null) {
                     throw new Exception("Falta definir la propiedad jugador" + i + ".partidasPerdidas");
                 }
+                if(promedioStr == null){
+                    throw new Exception("Falta definir la propiedad jugador" + i + ".promedio");
+                }
 
                 if (nombreJugador.trim().equalsIgnoreCase("")) {
                     throw new Exception("La propiedad jugador" + i + ".nombre no puede estar vacia.");
@@ -95,6 +99,9 @@ public class ControladorJugadores {
                 }
                 if (partidasPerdidasStr.trim().equalsIgnoreCase("")) {
                     throw new Exception("La propiedad jugador" + i + ".partidasPerdidas no puede estar vacia.");
+                }
+                if(promedioStr.trim().equalsIgnoreCase("")){
+                    throw new Exception("La propiedad jugador" + i + ".promedio no puede estar vacia.");
                 }
 
                 int numeroPartidasGanadas = Integer.parseInt(partidasGanadasStr);
@@ -112,7 +119,12 @@ public class ControladorJugadores {
                     throw new Exception("La propiedad jugador" + i + ".partidasPerdidas debe ser un numero positivo.");
                 }
 
-                Jugador jugador = new Jugador(nombreJugador, numeroPartidasGanadas, numeroPartidasEmpatadas, numeroPartidasEmpatadas);
+                double promedio = Double.parseDouble(promedioStr);
+                if(promedio < 0){
+                    throw new Exception("La propiedad jugador" + i + ".promedio debe ser un numero mayor o igual a cero.");
+                }
+                
+                Jugador jugador = new Jugador(nombreJugador, numeroPartidasGanadas, numeroPartidasEmpatadas, numeroPartidasEmpatadas, promedio);
                 this.jugadores.agregarJugador(jugador);
             }
         } catch (Exception ex) {
@@ -137,7 +149,7 @@ public class ControladorJugadores {
      */
     public void agregarJugador(String nombreJugador)
     {
-        Jugador jugador = new Jugador(nombreJugador, 0, 0, 0);
+        Jugador jugador = new Jugador(nombreJugador, 0, 0, 0, 0);
         this.jugadores.agregarJugador(jugador);
     }
     
@@ -169,5 +181,15 @@ public class ControladorJugadores {
     public void eliminarJugador(int index)
     {
         jugadores.eliminarJugador(index);
+    }
+    
+    /**
+     * Gestiona el proceso para obtener la lista de jugadores de mayor a menor
+     * promedio de juego.
+     * @return Lista de jugadores organizada.
+     */
+    public ArrayList<Jugador> promediarJugadores()    
+    {
+        return jugadores.promediarJugadores();
     }
 }

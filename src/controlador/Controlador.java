@@ -15,6 +15,8 @@ import java.util.Queue;
 import interfaz.PanelInformacionJuego;
 import interfaz.PanelJuego;
 import interfaz.PanelOpcionesJuego;
+import java.io.FileOutputStream;
+import java.util.Properties;
 import modelo.juego.Pieza;
 import modelo.juego.Tablero;
 import modelo.jugador.Jugador;
@@ -228,13 +230,13 @@ public class Controlador {
                     //Jugador con el turno
                     String jugadorUno = jugadorActual.getNombre();
                     jugadorActual.incrementarPartidasEmpatadas();
-                    
+
                     //Jugador en espera
                     jugadorActual = colaDeTurno.poll();
                     String jugadorDos = jugadorActual.getNombre();
                     jugadorActual.incrementarPartidasEmpatadas();
-                    
-                    pnlJuego.actualizarGanador("Ha sido un empate entre " +  jugadorUno + " y " + jugadorDos);
+
+                    pnlJuego.actualizarGanador("Ha sido un empate entre " + jugadorUno + " y " + jugadorDos);
                     reiniciarJuego();
                 } else {
                     cambiarTurno();
@@ -249,7 +251,7 @@ public class Controlador {
                 jugadorActual = colaDeTurno.poll();
                 String jugadorDos = jugadorActual.getNombre();
                 jugadorActual.incrementarPartidasEmpatadas();
-                pnlJuego.actualizarGanador("Ha sido un empate entre " +  jugadorUno + " y " + jugadorDos);
+                pnlJuego.actualizarGanador("Ha sido un empate entre " + jugadorUno + " y " + jugadorDos);
                 reiniciarJuego();
             } else {
                 cambiarTurno();

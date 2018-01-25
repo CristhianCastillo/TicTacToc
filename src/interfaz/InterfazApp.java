@@ -35,6 +35,16 @@ public class InterfazApp extends JFrame implements WindowListener {
      * Versión de la aplicación.
      */
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * Ruta del archivo de propiedades de los jugadores.
+     */
+    public static final String ARCHIVO_JUGADORES = "./data/jugadores.data";
+    
+    /**
+     * Ruta del archivo de propiedades de las figuras.
+     */
+    public static final String ARCHIVO_FIGURAS = "./data/figuras.data";
 
     // -------------------------------------------------------------------------
     // Atributos
@@ -113,10 +123,17 @@ public class InterfazApp extends JFrame implements WindowListener {
         this.setResizable(false);
         this.addWindowListener(this);
         
-        ctrl.conectar(pnlInformacion, pnlOpcionesJuego, pnlJuego);
-        ctrl.reiniciarJuego();
-        ctrlJugadores.importarLista("./data/jugadores.data");
-        ctrlFigura.importarFiguras("./data/figuras.data");
+        try
+        {
+            ctrl.conectar(pnlInformacion, pnlOpcionesJuego, pnlJuego);
+            ctrl.reiniciarJuego();
+            ctrlJugadores.importarLista(ARCHIVO_JUGADORES);
+            ctrlFigura.importarFiguras(ARCHIVO_FIGURAS);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Cargando propiedades", JOptionPane.ERROR_MESSAGE);
+        }   
     }
 
     // -------------------------------------------------------------------------
@@ -147,7 +164,11 @@ public class InterfazApp extends JFrame implements WindowListener {
     @Override
     public void windowClosing(WindowEvent e) 
     {
-        JOptionPane.showMessageDialog(this, "Se cierra la aplicación.", "Cerrar Aplicación", JOptionPane.INFORMATION_MESSAGE);
+        try {
+            ctrlJugadores.actualizarArchivoPropiedades(ARCHIVO_JUGADORES);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Actualizar Jugadores", JOptionPane.ERROR_MESSAGE);
+        }
     }
     @Override
     public void windowClosed(WindowEvent e) {}

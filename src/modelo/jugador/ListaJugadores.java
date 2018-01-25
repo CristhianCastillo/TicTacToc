@@ -129,7 +129,6 @@ public class ListaJugadores {
             jugadoresPromediados.set(i, jugadorPivote);
             jugadoresPromediados.set(pos, jugadorActual);
         }
-
         return jugadoresPromediados;
     }
 

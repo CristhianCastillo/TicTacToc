@@ -166,6 +166,7 @@ public class InterfazApp extends JFrame implements WindowListener {
     {
         try {
             ctrlJugadores.actualizarArchivoPropiedades(ARCHIVO_JUGADORES);
+            ctrlFigura.actualizarArchivoPropiedades(ARCHIVO_FIGURAS);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Actualizar Jugadores", JOptionPane.ERROR_MESSAGE);
         }

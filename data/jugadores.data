@@ -1,11 +1,11 @@
-#Wed Jan 24 21:05:07 COT 2018
+#Thu Jan 25 22:10:02 COT 2018
 jugador4.partidasGanadas=0
 jugador2.nombre=Sebastian Castillo
 jugador1.partidasEmpatadas=0
-jugador4.promedio=0.0
-jugador1.partidasGanadas=2
+jugador4.promedio=-1.0
+jugador1.partidasGanadas=3
 jugador2.partidasEmpatadas=0
-jugador1.partidasPerdidas=0
+jugador1.partidasPerdidas=1
 jugador2.promedio=-1.0
 jugador4.partidasEmpatadas=0
 jugador5.promedio=-1.0
@@ -16,12 +16,12 @@ jugador3.partidasPerdidas=0
 jugador5.partidasEmpatadas=0
 jugador2.partidasPerdidas=1
 jugador5.partidasGanadas=0
-jugador3.promedio=0.0
+jugador3.promedio=1.0
 jugador2.partidasGanadas=0
 jugador3.partidasEmpatadas=0
 jugador1.promedio=2.0
 jugador5.partidasPerdidas=1
-jugador3.partidasGanadas=0
-jugador4.partidasPerdidas=0
+jugador3.partidasGanadas=1
+jugador4.partidasPerdidas=1
 jugador1.nombre=Cristhian Castillo
 jugador4.nombre=Yolanda Erazo

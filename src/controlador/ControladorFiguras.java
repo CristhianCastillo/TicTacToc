@@ -10,6 +10,8 @@
 package controlador;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -147,6 +149,35 @@ public class ControladorFiguras {
      */
     public void eliminarFigura(int index) {
         lista.eliminarFigura(index);
+    }
+    
+    /**
+     * Actualiza el archivo de propiedades de las figuras geometricas que
+     * interfieren en la aplicación.
+     * @param rutaArchivo Ruta del archivo de propiedades.
+     * @throws Exception Generada por error al modificar el archivo de propiedades.
+     */
+    public void actualizarArchivoPropiedades(String rutaArchivo) throws Exception
+    {
+        try
+        {
+            Properties propiedades = new Properties();
+            try (OutputStream salida = new FileOutputStream(rutaArchivo)) {
+                for(int i = 1; i <= lista.getFiguras().size(); i ++)
+                {
+                    if( i == 1)
+                        propiedades.setProperty("figuras.cantidad", lista.getFiguras().size() + "");
+                    FiguraGeometrica figuraTemp = lista.getFiguras().get(i - 1);
+                    propiedades.setProperty("figura" + i + ".nombre", figuraTemp.getNombreFigura());
+                    propiedades.setProperty("figura" + i + ".ruta", figuraTemp.getRuta());
+                }
+                propiedades.store(salida, null);
+            }
+        }
+        catch(Exception ex)
+        {
+            throw new Exception(ex.getMessage() + " Error al modificar el archivo de propiedades.");
+        }
     }
 
 }

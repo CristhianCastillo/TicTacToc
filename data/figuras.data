@@ -1,24 +1,16 @@
-#------------------------------------------
-# Figuras Geometricas
-#------------------------------------------
-
-figuras.cantidad = 6
-
-figura1.nombre = Circulo
-figura1.ruta = data/circulo.png
-
-figura2.nombre = Cuadrado
-figura2.ruta = data/cuadrado.png
-
-figura3.nombre = Rectangulo
-figura3.ruta = data/rectangulo.png
-
-figura4.nombre = Rombo
-figura4.ruta = data/rombo.png
-
-figura5.nombre = Tracepecio
-figura5.ruta = data/trapecio.png
-
-figura6.nombre = Triangulo
-figura6.ruta = data/triangulo.png
-
+#Thu Jan 25 22:10:02 COT 2018
+figura3.nombre=Rectangulo
+figura5.ruta=data/trapecio.png
+figura2.nombre=Cuadrado
+figura2.ruta=data/cuadrado.png
+figura6.ruta=data/triangulo.png
+figura7.nombre=Pruebita
+figura3.ruta=data/rectangulo.png
+figura1.nombre=Circulo
+figura6.nombre=Triangulo
+figura7.ruta=C\:\\Users\\Cristhian User\\Documents\\NetBeansProjects\\TicTacToc\\data\\vacia.jpg
+figura5.nombre=Tracepecio
+figura4.ruta=data/rombo.png
+figura4.nombre=Rombo
+figura1.ruta=data/circulo.png
+figuras.cantidad=7

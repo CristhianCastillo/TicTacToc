@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 import controlador.Controlador;
 import controlador.ControladorFiguras;
 import controlador.ControladorJugadores;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
  * @author Cristhian Eduardo Castillo Erazo.
  *
  */
+//@SuppressWarnings("unchecked")
 public class InterfazApp extends JFrame implements WindowListener {
     // -------------------------------------------------------------------------
     // Constantes
@@ -96,6 +99,10 @@ public class InterfazApp extends JFrame implements WindowListener {
         ctrl = new Controlador();
         ctrlFigura = new ControladorFiguras();
         ctrlJugadores = new ControladorJugadores();
+      
+        Image icono = Toolkit.getDefaultToolkit().getImage("data/iconoAplicación.png");
+        this.setIconImage(icono);
+        
         this.setTitle("Tic-Tac-Toc");
         this.setLayout(new BorderLayout());
 

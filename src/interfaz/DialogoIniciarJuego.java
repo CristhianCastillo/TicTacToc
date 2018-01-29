@@ -36,6 +36,7 @@ import modelo.jugador.Jugador;
  * @author Cristhian Eduardo Castillo Erazo.
  *
  */
+@SuppressWarnings("unchecked")
 public class DialogoIniciarJuego extends JDialog implements ActionListener {
     // -------------------------------------------------------------------------
     // Constantes

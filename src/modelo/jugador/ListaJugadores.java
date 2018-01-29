@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * @author Cristhian Eduardo Castillo Erazo.
  *
  */
+@SuppressWarnings("unchecked")
 public class ListaJugadores {
     // -------------------------------------------------------------------------
     // Constantes

@@ -15,8 +15,6 @@ import java.util.Queue;
 import interfaz.PanelInformacionJuego;
 import interfaz.PanelJuego;
 import interfaz.PanelOpcionesJuego;
-import java.io.FileOutputStream;
-import java.util.Properties;
 import modelo.juego.Pieza;
 import modelo.juego.Tablero;
 import modelo.jugador.Jugador;

@@ -239,6 +239,12 @@ public class PanelOpcionesJuego extends JPanel implements ActionListener {
                         mejoresJugadores.setModal(true);
                         mejoresJugadores.setVisible(true);
                     }
+                    else if(comando.equalsIgnoreCase(JUGAR_MAQUINA))
+                    {
+                        DialogoJuegoMaquina jugarMaquina = new DialogoJuegoMaquina(ctrl, ctrlJugadores.obtenerJugadores(), ctrlFiguras.obtenerFiguras());
+                        jugarMaquina.setModal(true);
+                        jugarMaquina.setVisible(true);
+                    }
                 }
             }
         }

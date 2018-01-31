@@ -372,6 +372,7 @@ public class DialogoIniciarJuego extends JDialog implements ActionListener {
                 jugadorUno.setFigura(figuraUno);
                 jugadorDos.setFigura(figuraDos);
 
+                ctrl.prepararJuegoUsuarios();
                 ctrl.iniciarJuego(jugadorUno, jugadorDos);
 
                 this.dispose();

@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
@@ -114,6 +115,7 @@ public class DialogoJuegoMaquina extends JDialog implements ActionListener
      */
     public DialogoJuegoMaquina(Controlador ctrl, ArrayList<Jugador> jugadores, ArrayList<FiguraGeometrica> figuras)
     {
+        this.ctrl = ctrl;
         this.setTitle("Jugar contra la maquina");
         GroupLayout grupoDialogo = new GroupLayout(this.getContentPane());
         this.setLayout(grupoDialogo);
@@ -228,7 +230,7 @@ public class DialogoJuegoMaquina extends JDialog implements ActionListener
         this.setSize(470,240);
         this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        this.setResizable(true);
+        this.setResizable(false);
     }
     
     // -------------------------------------------------------------------------
@@ -245,7 +247,58 @@ public class DialogoJuegoMaquina extends JDialog implements ActionListener
         String comando = e.getActionCommand();
         if(comando.equalsIgnoreCase(INICIAR_JUEGO))
         {
-            
+            try
+            {
+                Jugador jugadorUno = (Jugador) cbmJugador.getSelectedItem();
+                Jugador jugadorDos = new Jugador(Jugador.NOMBRE_COMPUTADOR, 0, 0, 0, 0);
+                
+                if (jugadorUno.getNombre().equalsIgnoreCase(jugadorDos.getNombre())) {
+                    throw new Exception("Los jugadores seleccionados deben ser diferentes.");
+                }
+                
+                FiguraGeometrica figuraUno = (FiguraGeometrica) cbmFiguras.getSelectedItem();
+                FiguraGeometrica figuraDos = new FiguraGeometrica(FiguraGeometrica.NOMBRE_FIGURA_COMPUTADOR, FiguraGeometrica.RUTA_FIGURA_COMPUTADOR);
+
+                if (figuraUno.getNombreFigura().equalsIgnoreCase(figuraDos.getNombreFigura())) {
+                    throw new Exception("Las figuras seleccionadas deben ser diferentes.");
+                }
+
+                jugadorUno.setFigura(figuraUno);
+                jugadorDos.setFigura(figuraDos);
+
+                ctrl.prepararJuegoComputadora(obtenerDificultad());
+                ctrl.iniciarJuego(jugadorUno, jugadorDos);
+
+                this.dispose();
+            }
+            catch(Exception ex)
+            {
+                JOptionPane.showMessageDialog(this, ex, "Iniciar juego maquina", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    }
+    
+    /**
+     * Obtiene la dificultad seleccionada por el jugador.
+     * @return Dificultad seleccionada por el jugador:
+     * <ul>
+     *  <li> 1 = Dificultad Facil: La aplicación no valida ningun movimiento
+     * realizado por el usuario.
+     *  <li> 2 = Dificultad Medio: La aplicación valida los movimientos que
+     * debe realizar para alcanzar la vistoria, pero no valida los movimientos
+     * realizados por el usuario.
+     * <li> 3 = Dificultad Dificil: La aplicación valida los movimientos que
+     * realiza el usuario y calcula los necesarios para alcanzar la victoria.
+     * </ul>
+     */
+    public int obtenerDificultad()
+    {
+        if(rbtmFacil.isSelected())
+            return 1;
+        else if(rbtmMedio.isSelected())
+            return 2;
+        else if(rbtmDificil.isSelected())
+            return 3;
+        else return 0;
     }
 }

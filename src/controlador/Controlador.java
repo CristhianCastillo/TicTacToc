@@ -82,6 +82,16 @@ public class Controlador {
      * Panel Juego.
      */
     private PanelJuego pnlJuego;
+    
+    /**
+     * Dificultad seleccionada por el jugador.
+     */
+    private int dificultad;
+    
+    /**
+     * Validación si se juega contra la computadora o contra otro jugador.
+     */
+    private boolean computadora;
 
     // -------------------------------------------------------------------------
     // Constructores
@@ -145,6 +155,28 @@ public class Controlador {
         pnlOpcionesJuego.iniciarJuego();
         cambiarTurno();
     }
+    
+    /**
+     * Inicializa la dificultad seleccionada por el usuario.
+     * Indica que la partida se disputara entre un jugador y la computadora.
+     * @param dificultad Disficultad seleccionada por el jugador.
+     */
+    public void prepararJuegoComputadora(int dificultad)
+    {
+        this.dificultad = dificultad;
+        this.computadora = true;
+    }
+    
+    /**
+     * Indica que la partida se disputara entre usuarios.
+     * La dificultad se cambia a un valor no disponible para seleccionar por
+     * parte de un usuario.
+     */
+    public void prepararJuegoUsuarios()
+    {
+        this.dificultad = 0;
+        this.computadora = false;
+    }
 
     /**
      * Reinicia los componentes de los paneles.
@@ -186,6 +218,33 @@ public class Controlador {
                 break;
         }
         pnlInformacionJuego.cambiarTurno(jugadorActual.getFigura().getRuta(), jugadorActual.getNombre());
+        if(computadora && jugadorActual.getNombre().equalsIgnoreCase(Jugador.NOMBRE_COMPUTADOR))
+            realizarMovimientoMaquina();
+    }
+    
+    /**
+     * Valida la dificultad seleccionada por el usuario e implementa el
+     * algoritmo necesario para generar un movimiento.
+     */
+    public void realizarMovimientoMaquina()
+    {
+        switch(dificultad)
+        {
+            case 1:
+                int fila = (int) (Math.random() * 3 + 0);
+                int columna = (int) (Math.random() * 3 + 0);
+                while(!pnlJuego.validarDisponibilidadPosicion(fila, columna))
+                {
+                    fila = (int) (Math.random() * 3 + 0);
+                    columna = (int) (Math.random()* 3 + 0);
+                }
+                pnlJuego.movimientoMaquina(fila, columna);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+        }
     }
 
     /**
@@ -207,7 +266,6 @@ public class Controlador {
                 movimiento = 0;
             }
         }
-
         tresLineas.actualizarPosicion(x, y, turno);
 
         if (numeroJugada >= 3) {

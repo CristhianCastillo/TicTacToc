@@ -20,6 +20,16 @@ public class FiguraGeometrica {
     // Constantes
     // -------------------------------------------------------------------------
 
+    /**
+     * Constante que se usa para nombrar la figura por defecto de la computadora.
+     */
+    public static final String NOMBRE_FIGURA_COMPUTADOR = "Figura Computador";
+    
+    /**
+     * Constante que se usa para indicar la ruta de la imagen por defecto para
+     * la computadora.
+     */
+    public static final String RUTA_FIGURA_COMPUTADOR = "data/alien.png";
     // -------------------------------------------------------------------------
     // Atributos
     // -------------------------------------------------------------------------

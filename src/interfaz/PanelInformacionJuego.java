@@ -27,7 +27,7 @@ import javax.swing.border.LineBorder;
 /**
  * Clase que representa el Panel con la información
  *
- * @author Cristhian Castillo
+ * @author Cristhian Eduardo Castillo Erazo.
  *
  */
 public class PanelInformacionJuego extends JPanel {

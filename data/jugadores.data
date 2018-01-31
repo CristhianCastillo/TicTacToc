@@ -1,12 +1,12 @@
-#Tue Jan 30 23:27:14 COT 2018
+#Tue Jan 30 23:59:21 COT 2018
 jugador4.partidasGanadas=0
 jugador2.nombre=Sebastian Castillo
-jugador1.partidasEmpatadas=2
+jugador1.partidasEmpatadas=3
 jugador4.promedio=-1.0
-jugador1.partidasGanadas=7
+jugador1.partidasGanadas=9
 jugador2.partidasEmpatadas=0
 jugador6.partidasEmpatadas=1
-jugador1.partidasPerdidas=5
+jugador1.partidasPerdidas=6
 jugador2.promedio=-2.0
 jugador6.partidasPerdidas=1
 jugador6.promedio=0.0
@@ -23,7 +23,7 @@ jugador3.promedio=3.0
 jugador6.partidasGanadas=1
 jugador2.partidasGanadas=2
 jugador3.partidasEmpatadas=0
-jugador1.promedio=2.0
+jugador1.promedio=3.0
 jugador5.partidasPerdidas=1
 jugador3.partidasGanadas=4
 jugador6.nombre=Anita
